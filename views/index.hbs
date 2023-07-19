@@ -15,17 +15,17 @@
       <h1 class="text-center py-4 font-bold">PARTE DE VISITA / VISITING PART</h1>
       <form class="w-full py-5 ">
         <h3 id="propiedadTitle" class="text-center py-5 font-bold">IDENTIFICACIÓN INMUEBLE / Property Identification:</h3>
-        <div class="line-form font-medium py-2"><span>REF. PROPIEDAD / Ref: Property</span> <input name="referencia" class="block w-full rounded border-solid border-2 border-gray-200" id="referencia" type="text"></div>
-        <div class="line-form font-medium py-2"><span>DIRECCIÓN / Direction:</span> <input name="direccion" class="block w-full rounded border-solid border-2 border-gray-200" id="direccion" type="text"></div>
-        <div class="line-form font-medium py-2"><span>POBLACÍÓN / Population:</span> <input name="poblacion" class="block w-full rounded border-solid border-2 border-gray-200" id="poblacion" type="text"></div>
-        <div class="line-form font-medium py-2"><span>PRECIO / Price: </span> <input name="precio" class="block w-full rounded border-solid border-2 border-gray-200" id="precio" type="text"></div>
+        <div class="line-form font-medium py-2"><span>REF. PROPIEDAD / Ref: Property</span> <input required name="referencia" class="block w-full rounded border-solid border-2 border-gray-200" id="referencia" type="text"></div>
+        <div class="line-form font-medium py-2"><span>DIRECCIÓN / Direction:</span> <input required name="direccion" class="block w-full rounded border-solid border-2 border-gray-200" id="direccion" type="text"></div>
+        <div class="line-form font-medium py-2"><span>POBLACÍÓN / Population:</span> <input required name="poblacion" class="block w-full rounded border-solid border-2 border-gray-200" id="poblacion" type="text"></div>
+        <div class="line-form font-medium py-2"><span>PRECIO / Price: </span> <input required name="precio" class="block w-full rounded border-solid border-2 border-gray-200" id="precio" type="text"></div>
       </form>
       <form class="w-full py-5" >
         <h3 id="clienteTitle" class="text-center py-5 font-bold">IDENTIFICACIÓN CLIENTE INTERESADO / Interested client identification:</h3>
-        <div class="line-form font-medium py-2"><span>NOMBRE / Name:</span> <input name="nombre" class="name block w-full rounded border-solid border-2 border-gray-200 "  id="nombre" type="text"></div>
-        <div class="line-form font-medium py-2"><span>DNI / Passport: </span> <input name="pasaporte" class="block w-full rounded border-solid border-2 border-gray-200" id="pasaporte" type="text"></div>
-        <div class="line-form font-medium py-2"><span>CIUDAD / City:</span> <input name="ciudad" class="block w-full rounded border-solid border-2 border-gray-200" id="ciudad" type="text"></div>
-        <div class="line-form font-medium py-2"><span>PAÍS / Country:</span> <input name="pais" class="block w-full rounded border-solid border-2 border-gray-200" id="pais" type="text"></div>
+        <div class="line-form font-medium py-2"><span>NOMBRE / Name:</span> <input required name="nombre" class="name block w-full rounded border-solid border-2 border-gray-200 "  id="nombre" type="text"></div>
+        <div class="line-form font-medium py-2"><span>DNI / Passport: </span> <input required name="pasaporte" class="block w-full rounded border-solid border-2 border-gray-200" id="pasaporte" type="text"></div>
+        <div class="line-form font-medium py-2"><span>CIUDAD / City:</span> <input required name="ciudad" class="block w-full rounded border-solid border-2 border-gray-200" id="ciudad" type="text"></div>
+        <div class="line-form font-medium py-2"><span>PAÍS / Country:</span> <input required name="pais" class="block w-full rounded border-solid border-2 border-gray-200" id="pais" type="text"></div>
       </form>
       <div class="certifico w-full py-3">
         <h3 id="certificoTitle"  class="text-center py-5 font-bold">CERTIFICO / I Certify:</h3>
@@ -44,11 +44,11 @@
             third parties, including direct or collateral relatives, so that they are the ones who carry out 
             the purchase, thus avoiding the involvement of the Real Estate Agent.</p>
         <h3 id="observacionesTitle" class="text-center py-5 font-bold">OBSERVACIONES / OBSERVATIONS:</h3>
-        <div class="form-line"><span> </span> <input class="block w-full rounded border-solid border-2 border-gray-200 h-20" id="observaciones" type="text"></div>
+        <div class="form-line"><span> </span> <input required class="block w-full rounded border-solid border-2 border-gray-200 h-20" id="observaciones" type="text"></div>
       </div>
       <div class="firmas container-fluid w-full py-3 my-20">
         <form class="visita w-full ">
-          <div class="form text-center"><input id="visita" class="input-2" type="date"></div>
+          <div class="form text-center"><input required id="visita" class="input-2" type="date"></div>
           <div class="text-center ">
             <span id="fechaTitle" class="text-center font-bold">Fecha de visita / Date of Visit</span>
           </div>    
@@ -61,7 +61,7 @@
           <br>
         </form>
         <form class="agente w-full ">
-          <div class="form text-center"><input class=" w-80 rounded border-solid border-2 border-gray-200 h-10" id="agente" class="input-2" type="text"></div>
+          <div class="form text-center"><input required class=" w-80 rounded border-solid border-2 border-gray-200 h-10" id="agente" class="input-2" type="text"></div>
           <div class="text-center font-bold py-6">
             <span id="agenteTitle" class="">Agente Inmobiliario / Real Estate Agent<span>
           </div>     
@@ -326,6 +326,12 @@ document.getElementById('btnGenerarDocumento').addEventListener('click', functio
   const imgData1 = canvas.toDataURL();
   const imgData2 = canvas2.toDataURL();
 
+  // Validar los campos
+  if (!referencia || !direccion || !poblacion || !precio || !nombre || !pasaporte || !ciudad || !pais || !visita || !agente || !imgData1 || !imgData2) {
+    alert('Por favor, complete todos los campos requeridos.');
+    return;
+  }
+
   // Enviar los datos al servidor por medio de Fetch
   fetch('/generar-pdf', {
     method: 'POST',
@@ -349,10 +355,11 @@ document.getElementById('btnGenerarDocumento').addEventListener('click', functio
     })
   })
   .then(response => {
-    console.log('Archivo generado correctamente');
+    alert('El documento pdf se ha enviado ha sido enviado por Email');
+    window.location.href = '/exito';
   })
   .catch(error => {
-    console.log('Error al generar el archivo: ' + error);
+    console.error('Error al generar el archivo: ' + error);
   });
 });
 

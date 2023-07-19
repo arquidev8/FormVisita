@@ -23,6 +23,17 @@ app.get('/', (req, res) => {
 })
 
 
+app.get('/contrato.pdf', function(req, res){
+  const filePath = path.join(__dirname, 'contrato.pdf');
+  const stat = fs.statSync(filePath);
+  res.setHeader('Content-Length', stat.size);
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename=contrato.pdf');
+  const stream = fs.createReadStream(filePath);
+  stream.pipe(res);
+});
+
+
 app.post('/generar-pdf', (req, res) => {
   try {
     // Recopilar la información del formulario y los canvas
@@ -86,41 +97,46 @@ app.post('/generar-pdf', (req, res) => {
     doc.pipe(writeStream);
   
     writeStream.on('finish', () => {
-      res.download(filePath); // Agregar esta línea dentro de un controlador de ruta
+      let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          type: 'login',
+          user: 'hector.hernandez@hannanpiper.com',
+          pass: process.env.PASSWORD
+        }
+      });
+
+      let mailOptions = {
+        from: 'hector.hernandez@hannanpiper.com',
+        to: 'hectorcreatives08@gmail.com',
+        subject: 'Nuevo contrato generado',
+        text: 'Aquí está su nuevo contrato',
+        attachments: [{
+          filename: 'contrato.pdf',
+          path: filePath
+        }]
+      };
+
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+          res.sendStatus(500); // Error al enviar el correo con el PDF
+        } else {
+          console.log('Email enviado: ' + info.response);
+
+          // Redirigir al usuario a una ruta después de enviar el correo electrónico
+          res.redirect('/exito');
+        }
+      });
     });
-
-    let transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'login',
-        user: 'hector.hernandez@hannanpiper.com',
-        pass: process.env.PASSWORD
-      }
-    });
-
-    let mailOptions = {
-      from: 'hector.hernandez@hannanpiper.com',
-      to: 'hectorcreatives08@gmail.com',
-      subject: 'Nuevo contrato generado',
-      text: 'Aquí está su nuevo contrato',
-      attachments: [{
-        filename: 'contrato.pdf',
-        path: filePath
-      }]
-    };
-
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email enviado: ' + info.response);
-      }
-    });
-
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
   }
+});
+
+app.get('/exito', (req, res) => {
+  res.render('exito');
 });
 
 
