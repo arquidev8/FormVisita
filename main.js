@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const PDFDocument = require('pdfkit');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config()
+
 const nodemailer = require('nodemailer');
 // Definir la carpeta de archivos estáticos
 app.use(express.static('public'))
@@ -92,7 +94,7 @@ app.post('/generar-pdf', (req, res) => {
       auth: {
         type: 'login',
         user: 'hector.hernandez@hannanpiper.com',
-        pass: '20759364'
+        pass: process.env.PASSWORD
       }
     });
 
