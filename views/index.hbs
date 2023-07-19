@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTRATO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid mx-auto p-20 max-sm:p-5">
+      <img id="logo" class="w-25 md:w-60 lg:w-60" src="https://i.postimg.cc/2SLm5vL1/Artboard-1.png" alt="">
+      <h1 class="text-center py-4 font-bold">PARTE DE VISITA / VISITING PART</h1>
+      <form class="w-full py-5 ">
+        <h3 id="propiedadTitle" class="text-center py-5 font-bold">IDENTIFICACIÓN INMUEBLE / Property Identification:</h3>
+        <div class="line-form font-medium py-2"><span>REF. PROPIEDAD / Ref: Property</span> <input name="referencia" class="block w-full rounded border-solid border-2 border-gray-200" id="referencia" type="text"></div>
+        <div class="line-form font-medium py-2"><span>DIRECCIÓN / Direction:</span> <input name="direccion" class="block w-full rounded border-solid border-2 border-gray-200" id="direccion" type="text"></div>
+        <div class="line-form font-medium py-2"><span>POBLACÍÓN / Population:</span> <input name="poblacion" class="block w-full rounded border-solid border-2 border-gray-200" id="poblacion" type="text"></div>
+        <div class="line-form font-medium py-2"><span>PRECIO / Price: </span> <input name="precio" class="block w-full rounded border-solid border-2 border-gray-200" id="precio" type="text"></div>
+      </form>
+      <form class="w-full py-5" >
+        <h3 id="clienteTitle" class="text-center py-5 font-bold">IDENTIFICACIÓN CLIENTE INTERESADO / Interested client identification:</h3>
+        <div class="line-form font-medium py-2"><span>NOMBRE / Name:</span> <input name="nombre" class="name block w-full rounded border-solid border-2 border-gray-200 "  id="nombre" type="text"></div>
+        <div class="line-form font-medium py-2"><span>DNI / Passport: </span> <input name="pasaporte" class="block w-full rounded border-solid border-2 border-gray-200" id="pasaporte" type="text"></div>
+        <div class="line-form font-medium py-2"><span>CIUDAD / City:</span> <input name="ciudad" class="block w-full rounded border-solid border-2 border-gray-200" id="ciudad" type="text"></div>
+        <div class="line-form font-medium py-2"><span>PAÍS / Country:</span> <input name="pais" class="block w-full rounded border-solid border-2 border-gray-200" id="pais" type="text"></div>
+      </form>
+      <div class="certifico w-full py-3">
+        <h3 id="certificoTitle"  class="text-center py-5 font-bold">CERTIFICO / I Certify:</h3>
+        <p id="certificoParrafo" class="text-justify">Que he visitado el inmueble identificado arriba por estar interesado/a en su 
+            posible adquisición. La firma del presente parte de visita, solo justifica que he 
+            visitado y recibido la información sobre el precio y las formas de pago. Me 
+            comprometo a no realizar ninguna gestión encaminada a comprar/arrendar sin la 
+            intervención del agente comercial que me ha enseñado la propiedad, por medio de 
+            apoderado, o por conducto de terceras personas el inmueble visitado ni a parientes en línea 
+            directa o colateral, para que sean ellos los que realicen la compraventa, evitando que 
+            intervenga el Agente Inmobiliario. / I certify that I have visited the property identified above 
+            as I am interested in its potential acquisition. The signature on this visit document only confirms 
+            that I have visited and received information about the price and payment methods. I commit to not 
+            undertaking any actions aimed at buying/renting the visited property without the involvement of the 
+            commercial agent who showed me the property, either through a representative or through 
+            third parties, including direct or collateral relatives, so that they are the ones who carry out 
+            the purchase, thus avoiding the involvement of the Real Estate Agent.</p>
+        <h3 id="observacionesTitle" class="text-center py-5 font-bold">OBSERVACIONES / OBSERVATIONS:</h3>
+        <div class="form-line"><span> </span> <input class="block w-full rounded border-solid border-2 border-gray-200 h-20" id="observaciones" type="text"></div>
+      </div>
+      <div class="firmas container-fluid w-full py-3 my-20">
+        <form class="visita w-full ">
+          <div class="form text-center"><input id="visita" class="input-2" type="date"></div>
+          <div class="text-center ">
+            <span id="fechaTitle" class="text-center font-bold">Fecha de visita / Date of Visit</span>
+          </div>    
+          <br>
+          <canvas class="m-auto border-solid border-2 border-gray-200 " id="canvas" ></canvas>    
+          <div class="text-center">
+            <span id="firmaClienteTitle" class="text-center font-bold">Firma / Signature</span>
+          </div>
+          <br>
+          <br>
+        </form>
+        <form class="agente w-full ">
+          <div class="form text-center"><input class=" w-80 rounded border-solid border-2 border-gray-200 h-10" id="agente" class="input-2" type="text"></div>
+          <div class="text-center font-bold py-6">
+            <span id="agenteTitle" class="">Agente Inmobiliario / Real Estate Agent<span>
+          </div>     
+          <br>  
+          <canvas class="m-auto border-solid border-2 border-gray-200" id="canvas2" ></canvas>  
+          <div class="text-center font-bold">
+            <span id="firmaAgenteTitle" class="text-center font-bold">Firma / Signature </span> 
+          </div>
+        </form>   
+      </div>
+      <div class=" grid grid-cols-2 gap-y-5 h-60 text-white font-bold gap-10 max-sm:grid-cols-1">
+        <button class="bg-red-500 hover:bg-red-200 h-10 rounded" id="btnLimpiar">Limpiar / Clear</button>
+        <button hidden id="btnDescargar">Descargar</button>
+        <button class="bg-green-500 hover:bg-green-200 h-10 rounded" id="btnGenerarDocumento" type="button">Enviar / Send</button>
+        <br>
+      </div>
+    </div>   
+    <a hidden href="https://hannan-piper.com">By hannan-piper</a>
+  
+    <script src="/main.js"></script>
+    <script>
+  const $canvas = document.querySelector("#canvas");
+const $btnDescargar = document.querySelector("#btnDescargar");
+const $btnLimpiar = document.querySelector("#btnLimpiar");
+const $btnGenerarDocumento = document.querySelector("#btnGenerarDocumento");
+
+const contexto = $canvas.getContext("2d");
+const COLOR_PINCEL = "black";
+const COLOR_FONDO = "white";
+const GROSOR = 2;
+let xAnterior = 0, yAnterior = 0, xActual = 0, yActual = 0;
+const obtenerXReal = (clientX) => clientX - $canvas.getBoundingClientRect().left;
+const obtenerYReal = (clientY) => clientY - $canvas.getBoundingClientRect().top;
+let haComenzadoDibujo = false; // Bandera que indica si el usuario está presionando el botón del mouse sin soltarlo
+
+const $canvas2 = document.querySelector("#canvas2");
+const contexto2 = $canvas2.getContext("2d");
+
+// $canvas.width = 250;
+// $canvas.height = 120;
+const limpiarCanvas = () => {
+    // Colocar color blanco en fondo de canvas
+    contexto.fillStyle = COLOR_FONDO;
+    contexto.fillRect(0, 0, $canvas.width, $canvas.height);
+    
+};
+limpiarCanvas();
+$btnLimpiar.onclick = limpiarCanvas;
+// Escuchar clic del botón para descargar el canvas
+$btnDescargar.onclick = () => {
+    const enlace = document.createElement('a');
+    // El título
+    enlace.download = "Firma.png";
+    // Convertir la imagen a Base64 y ponerlo en el enlace
+    enlace.href = $canvas.toDataURL();
+    // Hacer click en él
+    enlace.click();
+};
+
+window.obtenerImagen = () => {
+    return $canvas.toDataURL();
+};
+
+window.obtenerImagen2 = () => {
+    return $canvas2.toDataURL();
+};
+
+
+// Lo demás tiene que ver con pintar sobre el canvas en los eventos del mouse
+$canvas.addEventListener("mousedown", evento => {
+    // En este evento solo se ha iniciado el clic, así que dibujamos un punto
+    xAnterior = xActual;
+    yAnterior = yActual;
+    xActual = obtenerXReal(evento.clientX);
+    yActual = obtenerYReal(evento.clientY);
+    contexto.beginPath();
+    contexto.fillStyle = COLOR_PINCEL;
+    contexto.fillRect(xActual, yActual, GROSOR, GROSOR);
+    contexto.closePath();
+    // Y establecemos la bandera
+    haComenzadoDibujo = true;
+});
+
+$canvas.addEventListener("mousemove", (evento) => {
+    if (!haComenzadoDibujo) {
+        return;
+    }
+    // El mouse se está moviendo y el usuario está presionando el botón, así que dibujamos todo
+
+    xAnterior = xActual;
+    yAnterior = yActual;
+    xActual = obtenerXReal(evento.clientX);
+    yActual = obtenerYReal(evento.clientY);
+    contexto.beginPath();
+    contexto.moveTo(xAnterior, yAnterior);
+    contexto.lineTo(xActual, yActual);
+    contexto.strokeStyle = COLOR_PINCEL;
+    contexto.lineWidth = GROSOR;
+    contexto.stroke();
+    contexto.closePath();
+});
+["mouseup", "mouseout"].forEach(nombreDeEvento => {
+    $canvas.addEventListener(nombreDeEvento, () => {
+        haComenzadoDibujo = false;
+    });
+});
+
+
+
+const limpiarCanvas2 = () => {
+    // Colocar color blanco en fondo de canvas
+    contexto2.fillStyle = COLOR_FONDO;
+    contexto2.fillRect(0, 0, $canvas2.width, $canvas2.height);
+};
+limpiarCanvas2();
+
+const obtenerXReal2 = (clientX) => clientX - $canvas2.getBoundingClientRect().left;
+const obtenerYReal2 = (clientY) => clientY - $canvas2.getBoundingClientRect().top;
+
+
+
+$btnLimpiar.onclick = function() {
+    limpiarCanvas2();
+    limpiarCanvas();
+};
+
+
+
+
+
+$canvas2.addEventListener("mousedown", evento => {
+    // En este evento solo se ha iniciado el clic, así que dibujamos un punto
+    xAnterior = xActual;
+    yAnterior = yActual;
+    xActual = obtenerXReal2(evento.clientX);
+    yActual = obtenerYReal2(evento.clientY);
+    contexto2.beginPath();
+    contexto2.fillStyle = COLOR_PINCEL;
+    contexto2.fillRect(xActual, yActual, GROSOR, GROSOR);
+    contexto2.closePath();
+    // Y establecemos la bandera
+    haComenzadoDibujo = true;
+});
+
+$canvas2.addEventListener("mousemove", (evento) => {
+    if (!haComenzadoDibujo) {
+        return;
+    }
+    // El mouse se está moviendo y el usuario está presionando el botón, así que dibujamos todo
+
+    xAnterior = xActual;
+    yAnterior = yActual;
+    xActual = obtenerXReal2(evento.clientX);
+    yActual = obtenerYReal2(evento.clientY);
+    contexto2.beginPath();
+    contexto2.moveTo(xAnterior, yAnterior);
+    contexto2.lineTo(xActual, yActual);
+    contexto2.strokeStyle = COLOR_PINCEL;
+    contexto2.lineWidth = GROSOR;
+    contexto2.stroke();
+    contexto2.closePath();
+});
+
+["mouseup", "mouseout"].forEach(nombreDeEvento => {
+    $canvas2.addEventListener(nombreDeEvento, () => {
+        haComenzadoDibujo = false;
+    });
+});
+
+
+$canvas.addEventListener("touchstart", evento => {
+    xAnterior = xActual;
+    yAnterior = yActual;
+    xActual = obtenerXReal(evento.touches[0].clientX);
+    yActual = obtenerYReal(evento.touches[0].clientY);
+    contexto.beginPath();
+    contexto.fillStyle = COLOR_PINCEL;
+    contexto.fillRect(xActual, yActual, GROSOR, GROSOR);
+    contexto.closePath();
+    haComenzadoDibujo = true;
+});
+
+$canvas.addEventListener("touchmove", evento => {
+    if (!haComenzadoDibujo) {
+        return;
+    }
+    xAnterior = xActual;
+    yAnterior = yActual;
+    xActual = obtenerXReal(evento.touches[0].clientX);
+    yActual = obtenerYReal(evento.touches[0].clientY);
+    contexto.beginPath();
+    contexto.moveTo(xAnterior, yAnterior);
+    contexto.lineTo(xActual, yActual);
+    contexto.strokeStyle = COLOR_PINCEL;
+    contexto.lineWidth = GROSOR;
+    contexto.stroke();
+    contexto.closePath();
+    
+
+  
+    evento.preventDefault();
+
+
+});
+
+$canvas.addEventListener("touchend", () => {
+    haComenzadoDibujo = false;
+});
+
+
+$canvas2.addEventListener("touchstart", evento => {
+    xAnterior = xActual;
+    yAnterior = yActual;
+    xActual = obtenerXReal2(evento.touches[0].clientX);
+    yActual = obtenerYReal2(evento.touches[0].clientY);
+    contexto2.beginPath();
+    contexto2.fillStyle = COLOR_PINCEL;
+    contexto2.fillRect(xActual, yActual, GROSOR, GROSOR);
+    contexto2.closePath();
+    haComenzadoDibujo = true;
+});
+
+$canvas2.addEventListener("touchmove", evento => {
+    if (!haComenzadoDibujo) {
+        return;
+    }
+    xAnterior = xActual;
+    yAnterior = yActual;
+    xActual = obtenerXReal2(evento.touches[0].clientX);
+    yActual = obtenerYReal2(evento.touches[0].clientY);
+    contexto2.beginPath();
+    contexto2.moveTo(xAnterior, yAnterior);
+    contexto2.lineTo(xActual, yActual);
+    contexto2.strokeStyle = COLOR_PINCEL;
+    contexto2.lineWidth = GROSOR;
+    contexto2.stroke();
+    contexto2.closePath();
+    evento.preventDefault();
+});
+
+$canvas2.addEventListener("touchend", () => {
+    haComenzadoDibujo = false;
+});
+
+
+document.getElementById('btnGenerarDocumento').addEventListener('click', function() {
+  // Recopilar los datos del formulario y canvas
+  const referencia = document.getElementById('referencia').value;
+  const direccion = document.getElementById('direccion').value;
+  const poblacion = document.getElementById('poblacion').value;
+  const precio = document.getElementById('precio').value;
+  const nombre = document.getElementById('nombre').value;
+  const pasaporte = document.getElementById('pasaporte').value;
+  const ciudad = document.getElementById('ciudad').value;
+  const pais = document.getElementById('pais').value;
+  const visita = document.getElementById('visita').value;
+  const agente = document.getElementById('agente').value;
+  const observaciones = document.getElementById('observaciones').value;
+
+  const canvas = document.getElementById('canvas');
+  const canvas2 = document.getElementById('canvas2'); 
+  const imgData1 = canvas.toDataURL();
+  const imgData2 = canvas2.toDataURL();
+
+  // Enviar los datos al servidor por medio de Fetch
+  fetch('/generar-pdf', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      referencia: referencia,
+      direccion: direccion,
+      poblacion: poblacion,
+      precio: precio,
+      nombre: nombre,
+      pasaporte: pasaporte,
+      ciudad: ciudad,
+      pais: pais,
+      visita: visita,
+      imgData1: imgData1,
+      imgData2: imgData2,
+      observaciones: observaciones,
+      agente: agente
+    })
+  })
+  .then(response => {
+    console.log('Archivo generado correctamente');
+  })
+  .catch(error => {
+    console.log('Error al generar el archivo: ' + error);
+  });
+});
+
+
+  
+
+    </script>
+  </body>
+</html>
