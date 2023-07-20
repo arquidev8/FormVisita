@@ -57,7 +57,6 @@ app.post('/generar-pdf', (req, res) => {
     const anio = fecha.getFullYear();
     const fechaFormateada = `${dia}/${mes}/${anio}`;
 
-    console.log("Datos recibidos:", referencia, direccion, poblacion, precio, nombre, pasaporte, ciudad, pais, visita, observaciones, agente);
 
     const doc = new PDFDocument();
 
@@ -119,10 +118,10 @@ app.post('/generar-pdf', (req, res) => {
 
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-          console.log(error);
+          // console.log(error);
           res.sendStatus(500); // Error al enviar el correo con el PDF
         } else {
-          console.log('Email enviado: ' + info.response);
+          // console.log('Email enviado: ' + info.response);
 
           // Redirigir al usuario a una ruta después de enviar el correo electrónico
           res.redirect('/exito');
@@ -130,7 +129,7 @@ app.post('/generar-pdf', (req, res) => {
       });
     });
   } catch (err) {
-    console.error(err);
+    // console.error(err);
     res.sendStatus(500);
   }
 });
@@ -141,4 +140,4 @@ app.get('/exito', (req, res) => {
 
 
 // Iniciar el servidor
-app.listen(3000, () => console.log('Servidor iniciado en el puerto 3000'))
+app.listen(3000, () => console.log(''))

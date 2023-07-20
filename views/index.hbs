@@ -355,11 +355,11 @@ document.getElementById('btnGenerarDocumento').addEventListener('click', functio
     })
   })
   .then(response => {
-    alert('El documento pdf se ha enviado ha sido enviado por Email');
+    alert('El contrato se ha enviado exitosamente por Email');
     window.location.href = '/exito';
   })
   .catch(error => {
-    console.error('Error al generar el archivo: ' + error);
+   
   });
 });
 
