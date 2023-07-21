@@ -12,18 +12,19 @@
   <body>
     <div class="container-fluid mx-auto p-20 max-sm:p-5">
       <img id="logo" class="w-25 md:w-60 lg:w-60" src="https://i.postimg.cc/2SLm5vL1/Artboard-1.png" alt="">
-      <h1 class="text-center py-4 font-bold">PARTE DE VISITA / VISITING PART</h1>
+      <h1 class="text-center py-4 font-bold">PARTE DE VISITA / Visit Form</h1>
       <form class="w-full py-5 ">
         <h3 id="propiedadTitle" class="text-center py-5 font-bold">IDENTIFICACIÓN INMUEBLE / Property Identification:</h3>
         <div class="line-form font-medium py-2"><span>REF. PROPIEDAD / Ref: Property</span> <input required name="referencia" class="block w-full rounded border-solid border-2 border-gray-200" id="referencia" type="text"></div>
         <div class="line-form font-medium py-2"><span>DIRECCIÓN / Direction:</span> <input required name="direccion" class="block w-full rounded border-solid border-2 border-gray-200" id="direccion" type="text"></div>
         <div class="line-form font-medium py-2"><span>POBLACÍÓN / Population:</span> <input required name="poblacion" class="block w-full rounded border-solid border-2 border-gray-200" id="poblacion" type="text"></div>
-        <div class="line-form font-medium py-2"><span>PRECIO / Price: </span> <input required name="precio" class="block w-full rounded border-solid border-2 border-gray-200" id="precio" type="text"></div>
+        <div class="line-form font-medium py-2"><span>PRECIO / Price: </span> <input required name="precio" class="block w-full rounded border-solid border-2 border-gray-200" id="precio" type="number"></div>
       </form>
       <form class="w-full py-5" >
         <h3 id="clienteTitle" class="text-center py-5 font-bold">IDENTIFICACIÓN CLIENTE INTERESADO / Interested client identification:</h3>
         <div class="line-form font-medium py-2"><span>NOMBRE / Name:</span> <input required name="nombre" class="name block w-full rounded border-solid border-2 border-gray-200 "  id="nombre" type="text"></div>
-        <div class="line-form font-medium py-2"><span>DNI / Passport: </span> <input required name="pasaporte" class="block w-full rounded border-solid border-2 border-gray-200" id="pasaporte" type="text"></div>
+         <div class="line-form font-medium py-2"><span>Correo / Email:</span> <input required name="email" class="name block w-full rounded border-solid border-2 border-gray-200 "  id="email" type="email"></div>
+        <div class="line-form font-medium py-2"><span>DNI/Passport / DNI Pasaporte: </span> <input required name="pasaporte" class="block w-full rounded border-solid border-2 border-gray-200" id="pasaporte" type="text"></div>
         <div class="line-form font-medium py-2"><span>CIUDAD / City:</span> <input required name="ciudad" class="block w-full rounded border-solid border-2 border-gray-200" id="ciudad" type="text"></div>
         <div class="line-form font-medium py-2"><span>PAÍS / Country:</span> <input required name="pais" class="block w-full rounded border-solid border-2 border-gray-200" id="pais" type="text"></div>
       </form>
@@ -36,7 +37,8 @@
             intervención del agente comercial que me ha enseñado la propiedad, por medio de 
             apoderado, o por conducto de terceras personas el inmueble visitado ni a parientes en línea 
             directa o colateral, para que sean ellos los que realicen la compraventa, evitando que 
-            intervenga el Agente Inmobiliario. / I certify that I have visited the property identified above 
+            intervenga el Agente Inmobiliario. / <br><br>
+            I certify that I have visited the property identified above 
             as I am interested in its potential acquisition. The signature on this visit document only confirms 
             that I have visited and received information about the price and payment methods. I commit to not 
             undertaking any actions aimed at buying/renting the visited property without the involvement of the 
@@ -314,6 +316,7 @@ document.getElementById('btnGenerarDocumento').addEventListener('click', functio
   const poblacion = document.getElementById('poblacion').value;
   const precio = document.getElementById('precio').value;
   const nombre = document.getElementById('nombre').value;
+  const email = document.getElementById('email').value;
   const pasaporte = document.getElementById('pasaporte').value;
   const ciudad = document.getElementById('ciudad').value;
   const pais = document.getElementById('pais').value;
@@ -327,7 +330,7 @@ document.getElementById('btnGenerarDocumento').addEventListener('click', functio
   const imgData2 = canvas2.toDataURL();
 
   // Validar los campos
-  if (!referencia || !direccion || !poblacion || !precio || !nombre || !pasaporte || !ciudad || !pais || !visita || !agente || !imgData1 || !imgData2) {
+  if (!referencia || !direccion || !poblacion || !precio || !nombre || !email || !pasaporte || !ciudad || !pais || !visita || !agente || !imgData1 || !imgData2) {
     alert('Por favor, complete todos los campos requeridos.');
     return;
   }
@@ -344,6 +347,7 @@ document.getElementById('btnGenerarDocumento').addEventListener('click', functio
       poblacion: poblacion,
       precio: precio,
       nombre: nombre,
+      email: email,
       pasaporte: pasaporte,
       ciudad: ciudad,
       pais: pais,
