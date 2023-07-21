@@ -112,8 +112,8 @@ app.post('/generar-pdf', (req, res) => {
       let mailOptions = {
         from: 'partesdevisita@hannanpiper.com',
         to: `${email}, partesdevisita@hannanpiper.com`,
-        subject: 'Nuevo contrato generado',
-        text: 'Aquí está su contrato de la visita realizada al inmueble.',
+        subject: 'Parte de Visita',
+        text: 'Aquí está su Parte de Visita',
         attachments: [{
           filename: 'contrato.pdf',
           path: filePath
