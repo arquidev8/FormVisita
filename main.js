@@ -113,7 +113,12 @@ app.post('/generar-pdf', (req, res) => {
         from: 'partesdevisita@hannanpiper.com',
         to: `${email}, partesdevisita@hannanpiper.com`,
         subject: 'Parte de Visita',
-        text: 'Aquí está su Parte de Visita',
+        text: `Estimado/a cliente:
+        Aquí está su Parte de Visita realizada al inmueble ubicado en ${direccion}.
+        Si está interesado/a en presentar una oferta por el mismo, puede comunicarse directamente con nombre del ${agente} o llamarnos al +34 931 59 58 80. 
+        También puede escribirnos un mail a info@hannanpiper.com.
+        Saludos,
+        Hannan-Piper Real Estate`,
         attachments: [{
           filename: 'contrato.pdf',
           path: filePath
