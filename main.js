@@ -24,11 +24,11 @@ app.get('/', (req, res) => {
 
 
 app.get('/contrato.pdf', function(req, res){
-  const filePath = path.join(__dirname, 'contrato.pdf');
+  const filePath = path.join(__dirname, 'parte_de_visita.pdf');
   const stat = fs.statSync(filePath);
   res.setHeader('Content-Length', stat.size);
   res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', 'attachment; filename=contrato.pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename=parte_de_visita.pdf');
   const stream = fs.createReadStream(filePath);
   stream.pipe(res);
 });
@@ -82,16 +82,17 @@ app.post('/generar-pdf', (req, res) => {
       .text(`OBSERVACIONES / OBSERVATIONS:`, 100, 515, {align: 'center'})
       .text(observaciones, 100, 530, {align: 'center'})
    
-      .text(`Fecha de visita / Date of Visit: ${fechaFormateada}`, 100, 540, {align: 'center'})
-      .image(imgData1, 270, 550, {width: 90, align: 'center'})
-      .text(nombre, 100, 590, {align: 'center'})   
-      .text('Firma / Signature', 100, 610, {align: 'center'})
+      .text(`Fecha de visita / Date of Visit: ${fechaFormateada}`, 100, 550, {align: 'center'})
+      .text('Firma del Cliente/ Client Signature:', 100, 570, {align: 'center'})
+      .image(imgData1, 270, 580, {width: 90, align: 'center'})
+      .text(nombre, 100, 620, {align: 'center'})   
+      
     // doc.addPage();
     // doc.fontSize(11)
-      .text('Agente Inmobiliario / Real Estate Agent:', 100, 625, {align: 'center'})   
-      .image(imgData2, 270,  640, {width: 90, align: 'center'})
-      .text(agente, 100, 685, {align: 'center'})
-      .text('Firma / Signature', 100, 700, {align: 'center'})
+      .text('Firma del Agente Inmobiliario / Real Estate Agent: Signature', 100, 640, {align: 'center'})   
+      .image(imgData2, 270,  655, {width: 90, align: 'center'})
+      .text(agente, 100, 695, {align: 'center'})
+      
     
     // Finalizar y guardar el archivo PDF
     doc.end();
@@ -115,12 +116,12 @@ app.post('/generar-pdf', (req, res) => {
         subject: 'Parte de Visita',
         text: `Estimado/a cliente:
         Aquí está su Parte de Visita realizada al inmueble ubicado en ${direccion}.
-        Si está interesado/a en presentar una oferta por el mismo, puede comunicarse directamente con nombre del ${agente} o llamarnos al +34 931 59 58 80. 
+        Si está interesado/a en presentar una oferta por el mismo, puede comunicarse directamente con ${agente} o llamarnos al +34 931 59 58 80. 
         También puede escribirnos un mail a info@hannanpiper.com.
         Saludos,
         Hannan-Piper Real Estate`,
         attachments: [{
-          filename: 'contrato.pdf',
+          filename: 'parte_de_visita.pdf',
           path: filePath
         }]
       };
